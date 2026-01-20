@@ -42,6 +42,17 @@ Data <- mydata
 
 
 ########################
+# DATA WRANGLING
+########################
+
+# remove  person 567899, this person had too many income entries and is probably
+# a data entry error
+Data %>%
+  filter(personID != "567899") ->
+  Data
+
+
+########################
 # INITIAL EXPLORATION
 ########################
 
