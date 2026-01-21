@@ -33,8 +33,8 @@ library(dplyr)     # TODO: script only works if this is loaded twice?!
 
 # load the final, clean dataset
 # TODO: fix issues in the final version of the dataset
-mydata<-read.csv("/project/clean_data/DO_NOT_USE_THIS/data.csv")
-# mydata<-read.csv("/project/clean_data/final_clean_data/data2.csv")
+mydata<-read.csv("/home/jansav/Jan's project/clean_data/DO_NOT_USE_THIS/data.csv")
+# mydata<-read.csv("/home/jansav/Jan's project/clean_data/final_clean_data/data2.csv")
 
 
 # Let's call it Data from now on
@@ -123,22 +123,25 @@ data2$is_old <- ifelse(data2$age > 47, TRUE, FALSE)
 ########################
 
 # Plot income distribution
-ggplot(data2, aes(x=income)) +
+figure_1 <-
+  ggplot(data2, aes(x=income)) +
   geom_histogram(bins=30)
 
 # Plot income by age
-ggplot(Data, aes(x=age,y=income))+
+figure2 <-
+  ggplot(Data, aes(x=age,y=income))+
   geom_point()
 
 # Check summary again
 summary(data2)
 
+ggsave(figure_1, filename = "/home/jansav/Jan's project/clean_data/figure_1.png")
 
 ########################
 # LOAD INCOME GROUP
 ########################
 
-incomeGroup=read.csv("/project/clean_data/income_group_incomplete.csv")
+incomeGroup=read.csv("/home/jansav/Jan's project/clean_data/income_group_incomplete.csv")
 # merge income group to data - this takes all individuals in data2 and finds the
 # same individual in income group and adds the columns from income group to the
 # data
@@ -216,3 +219,12 @@ data2 %>%
 # EXPORT
 ########################
 
+# save the wrangled dataset for later use
+save(data2, file = "/home/jansav/clean_data/data2.Rdata")
+
+
+########################
+# END
+########################
+
+sessionInfo()  # prints versions of packages used, for easier replication!
