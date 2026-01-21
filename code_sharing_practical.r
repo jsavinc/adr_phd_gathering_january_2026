@@ -211,8 +211,13 @@ data2$riskFactor <- tmp1$z[match(data2$income_group, tmp1$income_group)]
 ########################
 
 data2 %>%
+  arrange(personID, dateIncomeRecorded, cprs11) %>%
+  group_by(personID, cprs11) %>%
+  slice(1) %>%
+  ungroup %>%
   group_by(riskFactor, income_group) %>%
-  summarise(mean = mean(income))
+  summarise(mean = mean(income)) %>%
+  ungroup
 
 
 ########################
